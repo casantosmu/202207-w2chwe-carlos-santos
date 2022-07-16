@@ -1,15 +1,26 @@
-let currentState = [false, false, false, true, true, true, false, false, false];
+let currentCellStatus = [
+  true,
+  false,
+  false,
+  true,
+  true,
+  true,
+  false,
+  true,
+  false,
+];
 
-let nextState;
+const cellsBoardRows = 3;
+const cellsBoardColumns = currentCellStatus.length / cellsBoardRows;
 
-const getCellsBoard = (rows, columns, cells) => {
+const getCellsBoard = (rows, columns, cellsStatus) => {
   let cellIndex = 0;
   const result = [];
 
   for (let rowIndex = 0; rowIndex < columns; rowIndex += 1) {
     result[rowIndex] = [];
     for (let columnIndex = 0; columnIndex < rows; columnIndex += 1) {
-      result[rowIndex][columnIndex] = cells[cellIndex];
+      result[rowIndex][columnIndex] = cellsStatus[cellIndex];
       cellIndex += 1;
     }
   }
@@ -17,102 +28,117 @@ const getCellsBoard = (rows, columns, cells) => {
   return result;
 };
 
-const checkHorizontally = (board, row, column) => {
-  const lastColumn = board[0].length - 1;
+const getNeighborsCellsHorizontally = (cellsBoard, cellRow, cellColumn) => {
+  const lastColumn = cellsBoard[0].length - 1;
   let leftCell;
   let rightCell;
 
-  if (column !== 0) {
-    leftCell = board[row][column - 1];
+  if (cellColumn !== 0) {
+    leftCell = cellsBoard[cellRow][cellColumn - 1];
   }
 
-  if (column !== lastColumn) {
-    rightCell = board[row][column + 1];
+  if (cellColumn !== lastColumn) {
+    rightCell = cellsBoard[cellRow][cellColumn + 1];
   }
 
   return [leftCell, rightCell];
 };
 
-const checkVertically = (board, row, column) => {
-  const lastRow = board.length - 1;
+const getNeighborsCellsVertically = (cellsBoard, cellRow, cellColumn) => {
+  const lastRow = cellsBoard.length - 1;
   let topCell;
   let bottomCell;
 
-  if (row !== 0) {
-    topCell = board[row - 1][column];
+  if (cellRow !== 0) {
+    topCell = cellsBoard[cellRow - 1][cellColumn];
   }
 
-  if (row !== lastRow) {
-    bottomCell = board[row + 1][column];
+  if (cellRow !== lastRow) {
+    bottomCell = cellsBoard[cellRow + 1][cellColumn];
   }
 
   return [topCell, bottomCell];
 };
 
-const checkBackslash = (board, row, column) => {
-  const lastRow = board.length - 1;
-  const lastColumn = board[0].length - 1;
+const getNeighborsCellsBackslash = (cellsBoard, cellRow, cellColumn) => {
+  const lastRow = cellsBoard.length - 1;
+  const lastColumn = cellsBoard[0].length - 1;
   let upperLeftCell;
   let lowerRightCell;
 
-  if (column !== 0) {
-    if (row !== 0) {
-      upperLeftCell = board[row - 1][column - 1];
+  if (cellColumn !== 0) {
+    if (cellRow !== 0) {
+      upperLeftCell = cellsBoard[cellRow - 1][cellColumn - 1];
     }
   }
 
-  if (column !== lastColumn) {
-    if (row !== lastRow) {
-      lowerRightCell = board[row + 1][column + 1];
+  if (cellColumn !== lastColumn) {
+    if (cellRow !== lastRow) {
+      lowerRightCell = cellsBoard[cellRow + 1][cellColumn + 1];
     }
   }
 
   return [upperLeftCell, lowerRightCell];
 };
 
-const checkSlash = (board, row, column) => {
-  const lastRow = board.length - 1;
-  const lastColumn = board[0].length - 1;
+const getNeighborsCellsSlash = (cellsBoard, cellRow, cellColumn) => {
+  const lastRow = cellsBoard.length - 1;
+  const lastColumn = cellsBoard[0].length - 1;
   let upperRightCell;
   let lowerLeftCell;
 
-  if (column !== lastColumn) {
-    if (row !== 0) {
-      upperRightCell = board[row - 1][column + 1];
+  if (cellColumn !== lastColumn) {
+    if (cellRow !== 0) {
+      upperRightCell = cellsBoard[cellRow - 1][cellColumn + 1];
     }
   }
 
-  if (column !== 0) {
-    if (row !== lastRow) {
-      lowerLeftCell = board[row + 1][column - 1];
+  if (cellColumn !== 0) {
+    if (cellRow !== lastRow) {
+      lowerLeftCell = cellsBoard[cellRow + 1][cellColumn - 1];
     }
   }
 
   return [upperRightCell, lowerLeftCell];
 };
 
-const getNumberOfLivingCells = (...neighborsCellsState) =>
-  [].concat(...neighborsCellsState).filter((status) => status === true).length;
+const getNumberOfLivingCells = (...neighborsCellsStatus) =>
+  [].concat(...neighborsCellsStatus).filter((status) => status === true).length;
 
-const isAlive = (cellStatus, livingCells) => {
-  if (cellStatus === false && livingCells === 3) {
+const isAlive = (cellStatus, livingNeighborsCells) => {
+  if (cellStatus === false && livingNeighborsCells === 3) {
     return true;
   }
 
-  if ((cellStatus === true && livingCells === 2) || livingCells === 3) {
+  if (
+    (cellStatus === true && livingNeighborsCells === 2) ||
+    livingNeighborsCells === 3
+  ) {
     return true;
   }
 
   return false;
 };
 
-const getCellNextStatus = (board, row, column) => {
-  const cellsHorizontal = checkHorizontally(board, row, column);
-  const cellsVertical = checkVertically(board, row, column);
-  const cellsSlash = checkSlash(board, row, column);
-  const cellsBackslash = checkBackslash(board, row, column);
+const getCellNextStatus = (cellsBoard, cellRow, cellColumn) => {
+  const cellsHorizontal = getNeighborsCellsHorizontally(
+    cellsBoard,
+    cellRow,
+    cellColumn
+  );
+  const cellsVertical = getNeighborsCellsVertically(
+    cellsBoard,
+    cellRow,
+    cellColumn
+  );
+  const cellsSlash = getNeighborsCellsSlash(cellsBoard, cellRow, cellColumn);
+  const cellsBackslash = getNeighborsCellsBackslash(
+    cellsBoard,
+    cellRow,
+    cellColumn
+  );
 
-  const cellStatus = board[row][column];
+  const cellStatus = cellsBoard[cellRow][cellColumn];
 
   const livingCells = getNumberOfLivingCells(
     cellsHorizontal,
@@ -139,18 +165,23 @@ const getNextCellsStatus = (currentCellsBoard) => {
 };
 
 const game = () => {
-  let counter = 0;
-  const maxLoops = 100;
+  // let counter = 0;
+  // const maxLoops = 100;
   const timedLoop = setInterval(() => {
-    if (counter >= maxLoops) {
-      clearInterval(timedLoop);
-      return;
-    }
+    // if (counter >= maxLoops) {
+    //   clearInterval(timedLoop);
+    //   return;
+    // }
 
-    const currentCardboard = getCellsBoard(3, 3, currentState);
+    const currentCardboard = getCellsBoard(
+      cellsBoardRows,
+      cellsBoardColumns,
+      currentCellStatus
+    );
+
     console.log(currentCardboard);
-    currentState = getNextCellsStatus(currentCardboard);
-    counter += 1;
+    currentCellStatus = getNextCellsStatus(currentCardboard);
+    // counter += 1;
   }, 1000);
 };
 
