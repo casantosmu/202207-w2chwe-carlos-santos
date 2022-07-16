@@ -1,14 +1,6 @@
-const initialState = [
-  false,
-  false,
-  false,
-  true,
-  true,
-  true,
-  false,
-  false,
-  false,
-];
+let currentState = [false, false, false, true, true, true, false, false, false];
+
+let nextState;
 
 const getCellsBoard = (rows, columns, cells) => {
   let cellIndex = 0;
@@ -114,7 +106,7 @@ const isAlive = (cellStatus, livingCells) => {
   return false;
 };
 
-const getNextStatus = (board, row, column) => {
+const getCellNextStatus = (board, row, column) => {
   const cellsHorizontal = checkHorizontally(board, row, column);
   const cellsVertical = checkVertically(board, row, column);
   const cellsSlash = checkSlash(board, row, column);
@@ -131,3 +123,35 @@ const getNextStatus = (board, row, column) => {
 
   return isAlive(cellStatus, livingCells);
 };
+
+const getNextCellsStatus = (currentCellsBoard) => {
+  const nextCellsStatus = [];
+
+  currentCellsBoard.forEach((row, rowIndex) =>
+    row.forEach((cell, columnIndex) => {
+      nextCellsStatus.push(
+        getCellNextStatus(currentCellsBoard, rowIndex, columnIndex)
+      );
+    })
+  );
+
+  return nextCellsStatus;
+};
+
+const game = () => {
+  let counter = 0;
+  const maxLoops = 100;
+  const timedLoop = setInterval(() => {
+    if (counter >= maxLoops) {
+      clearInterval(timedLoop);
+      return;
+    }
+
+    const currentCardboard = getCellsBoard(3, 3, currentState);
+    console.log(currentCardboard);
+    currentState = getNextCellsStatus(currentCardboard);
+    counter += 1;
+  }, 1000);
+};
+
+game();
