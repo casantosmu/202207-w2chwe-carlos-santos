@@ -1,13 +1,13 @@
 let currentCellStatus = [
+  false,
+  false,
+  false,
+  true,
+  true,
   true,
   false,
   false,
   true,
-  true,
-  true,
-  false,
-  true,
-  false,
 ];
 
 const cellsBoardRows = 3;
@@ -164,25 +164,24 @@ const getNextCellsStatus = (currentCellsBoard) => {
   return nextCellsStatus;
 };
 
-const game = () => {
-  // let counter = 0;
-  // const maxLoops = 100;
-  const timedLoop = setInterval(() => {
-    // if (counter >= maxLoops) {
-    //   clearInterval(timedLoop);
-    //   return;
-    // }
+const areAllDead = (cellsStatus) =>
+  !cellsStatus.find((cellStatus) => cellStatus === true);
 
-    const currentCardboard = getCellsBoard(
+const game = () => {
+  const timedLoop = setInterval(() => {
+    if (areAllDead(currentCellStatus)) {
+      clearInterval(timedLoop);
+    }
+
+    const currentCellsBoard = getCellsBoard(
       cellsBoardRows,
       cellsBoardColumns,
       currentCellStatus
     );
 
-    console.log(currentCardboard);
-    currentCellStatus = getNextCellsStatus(currentCardboard);
-    // counter += 1;
-  }, 1000);
+    console.log(currentCellsBoard);
+    currentCellStatus = getNextCellsStatus(currentCellsBoard);
+  }, 500);
 };
 
 game();
