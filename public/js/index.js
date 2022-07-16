@@ -1,12 +1,12 @@
 const initialState = [
   false,
   false,
-  true,
   false,
   true,
   true,
-  false,
   true,
+  false,
+  false,
   false,
 ];
 
@@ -97,4 +97,37 @@ const checkSlash = (board, row, column) => {
   }
 
   return [upperRightCell, lowerLeftCell];
+};
+
+const getNumberOfLivingCells = (...neighborsCellsState) =>
+  [].concat(...neighborsCellsState).filter((status) => status === true).length;
+
+const isAlive = (cellStatus, livingCells) => {
+  if (cellStatus === false && livingCells === 3) {
+    return true;
+  }
+
+  if ((cellStatus === true && livingCells === 2) || livingCells === 3) {
+    return true;
+  }
+
+  return false;
+};
+
+const getNextStatus = (board, row, column) => {
+  const cellsHorizontal = checkHorizontally(board, row, column);
+  const cellsVertical = checkVertically(board, row, column);
+  const cellsSlash = checkSlash(board, row, column);
+  const cellsBackslash = checkBackslash(board, row, column);
+
+  const cellStatus = board[row][column];
+
+  const livingCells = getNumberOfLivingCells(
+    cellsHorizontal,
+    cellsVertical,
+    cellsSlash,
+    cellsBackslash
+  );
+
+  return isAlive(cellStatus, livingCells);
 };
