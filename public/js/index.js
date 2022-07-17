@@ -7,18 +7,32 @@ import {
   getNextCellsStatus,
 } from "./cells/cellsBoard.js";
 
-const cellsBoardRows = 12;
-const cellsBoardColumns = 12;
+let cellsBoardRows = 12;
+let cellsBoardColumns = 12;
 const timerSpeed = 500;
 let isStopped;
+let currentCellsStatus;
+
+const settingsDropdownElement = document.querySelector(".js-settings-dropdown");
+
+settingsDropdownElement.addEventListener("click", () => {
+  cellsBoardRows = settingsDropdownElement.value;
+  cellsBoardColumns = settingsDropdownElement.value;
+
+  printBoard(
+    getBoardInnerHTML(cellsBoardRows, cellsBoardColumns, currentCellsStatus)
+  );
+});
 
 const gameEvolution = () => {
-  let currentCellsStatus = getStatusFromCellsElements();
+  currentCellsStatus = getStatusFromCellsElements();
   isStopped = false;
+  settingsDropdownElement.disabled = true;
 
   const timedLoop = setInterval(() => {
     if (areAllDead(currentCellsStatus) || isStopped) {
       clearInterval(timedLoop);
+      settingsDropdownElement.disabled = false;
     }
 
     const current2DCellsArray = get2DCellsArray(
