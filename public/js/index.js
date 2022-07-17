@@ -7,18 +7,39 @@ import {
   getNextCellsStatus,
 } from "./cells/cellsBoard.js";
 
-const cellsBoardRows = 12;
-const cellsBoardColumns = 12;
-const timerSpeed = 500;
+let cellsBoardRows = 12;
+let cellsBoardColumns = 12;
+let timerSpeed = 1000;
 let isStopped;
+let currentCellsStatus;
+
+const selectSizeElement = document.querySelector(".js-select-size");
+const selectSpeedElement = document.querySelector(".js-select-speed");
+
+selectSizeElement.addEventListener("click", () => {
+  cellsBoardRows = selectSizeElement.value;
+  cellsBoardColumns = selectSizeElement.value;
+
+  printBoard(
+    getBoardInnerHTML(cellsBoardRows, cellsBoardColumns, currentCellsStatus)
+  );
+});
+
+selectSpeedElement.addEventListener("click", () => {
+  timerSpeed = 1000 * selectSpeedElement.value;
+});
 
 const gameEvolution = () => {
-  let currentCellsStatus = getStatusFromCellsElements();
+  currentCellsStatus = getStatusFromCellsElements();
   isStopped = false;
+  selectSizeElement.disabled = true;
+  selectSpeedElement.disabled = true;
 
   const timedLoop = setInterval(() => {
     if (areAllDead(currentCellsStatus) || isStopped) {
       clearInterval(timedLoop);
+      selectSizeElement.disabled = false;
+      selectSpeedElement.disabled = false;
     }
 
     const current2DCellsArray = get2DCellsArray(
