@@ -1,8 +1,8 @@
 @use "../variables/colors";
 
 body {
-  background-color: colors.$secondary-color;
-  color: colors.$white-color;
+  background-color: colors.$secondary;
+  color: colors.$white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.5;
