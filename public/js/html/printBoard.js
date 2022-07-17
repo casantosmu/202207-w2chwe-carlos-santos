@@ -1,8 +1,9 @@
 const getCellTemplateHTML = (id, status) => {
+  const tabindex = id + 1;
   if (status === true) {
-    return `<div class="board__cell board__cell--accent" data-id="${id}" data-status="true" tabindex="${id}"></div>`;
+    return `<div class="board__cell board__cell--accent" data-id="${id}" data-status="true" tabindex="${tabindex}"></div>`;
   }
-  return `<div class="board__cell" data-id="${id}" data-status="false" tabindex="${id}"></div>`;
+  return `<div class="board__cell" data-id="${id}" data-status="false" tabindex="${tabindex}"></div>`;
 };
 
 const getRowTemplateHTML = (innerHTML) =>
