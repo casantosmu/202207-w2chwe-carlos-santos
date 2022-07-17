@@ -20,6 +20,24 @@
         Dibuja el estado inicial en el tablero <br />
         del juego y pulsa jugar
       </p>
+      <form class="settings js-settings">
+        <h2 class="settings__heading"></h2>
+
+        <div>
+          <label for="select-size" class="settings_label">Tamaño:</label>
+          <select
+            name="select-size"
+            id="select-size"
+            class="settings__dropdown"
+          >
+            <option value="3">3x3</option>
+            <option value="6">6x6</option>
+            <option value="12">12x12</option>
+            <option value="16">16x16</option>
+            <option value="24">24x24</option>
+          </select>
+        </div>
+      </form>
       <div class="board js-board"></div>
       <div class="board__buttons">
         <button class="button button--primary js-play-button">Jugar</button>
