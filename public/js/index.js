@@ -7,21 +7,23 @@ import {
   getNextCellsStatus,
 } from "./cells/cellsBoard.js";
 
-const cellsBoardRows = 16;
-const cellsBoardColumns = 16;
+const cellsBoardRows = 32;
+const cellsBoardColumns = 32;
+
+let isStopped = false;
 
 const gameEvolution = () => {
   let currentCellsStatus = getStatusFromCellsElements();
+
   const timedLoop = setInterval(() => {
-    if (areAllDead(currentCellsStatus)) {
-      clearInterval(timedLoop);
-    }
     const currentCellsBoard = getCellsBoard(
       cellsBoardRows,
       cellsBoardColumns,
       currentCellsStatus
     );
+
     currentCellsStatus = getNextCellsStatus(currentCellsBoard);
+
     printBoard(
       getBoardInnerElements(
         cellsBoardRows,
@@ -29,11 +31,20 @@ const gameEvolution = () => {
         currentCellsStatus
       )
     );
-  }, 500);
-};
 
-const starButtonElement = document.querySelector(".js-play-button");
+    if (areAllDead(currentCellsStatus) || isStopped) {
+      console.log("Stopedd");
+      clearInterval(timedLoop);
+    }
+  }, 1000);
+};
 
 printBoard(getBoardInnerElements(cellsBoardRows, cellsBoardColumns));
 
+const starButtonElement = document.querySelector(".js-play-button");
+const stopButtonElement = document.querySelector(".js-stop-button");
+
 starButtonElement.addEventListener("click", gameEvolution);
+stopButtonElement.addEventListener("click", () => {
+  isStopped = true;
+});
