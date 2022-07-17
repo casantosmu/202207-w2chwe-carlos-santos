@@ -11,7 +11,11 @@ const toggleElement = (element) => {
 
 export const boardClickHandler = boardElement.addEventListener(
   "click",
-  (element) => toggleElement(element.target)
+  (element) => {
+    if (element.target.dataset.id !== undefined) {
+      toggleElement(element.target);
+    }
+  }
 );
 
 export const boardKeyHandler = boardElement.addEventListener(
