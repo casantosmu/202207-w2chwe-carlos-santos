@@ -1,0 +1,53 @@
+@use "../variables/colors";
+@use "sass:color";
+
+.hero {
+  margin-bottom: 2rem;
+}
+
+.hero__background {
+  height: 5rem;
+  background-image: radial-gradient(
+    circle,
+    color.scale(colors.$primary, $lightness: 10%) 0%,
+    colors.$primary 100%
+  );
+}
+
+.hero__card {
+  position: relative;
+  width: fit-content;
+  background-color: colors.$secondary;
+  margin: 0 auto;
+  margin-top: -1rem;
+  padding: 0.5rem 1rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-image: url(../images/shadow.png);
+    background-size: 100% 100%;
+    width: 2rem;
+    height: 2rem;
+    right: -2rem;
+    bottom: -7px;
+    transform: scaleX(-1);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url(../images/shadow.png);
+    background-size: 100% 100%;
+    width: 2rem;
+    height: 2rem;
+    left: -2rem;
+    bottom: -7px;
+  }
+}
+
+.hero__heading {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
