@@ -19,7 +19,7 @@ const getGridInnerElements = (rows, columns) => {
 };
 
 export const printStarterGrid = (rows, columns) => {
-  const gridElement = document.querySelector(".js-grid");
+  const gridElement = document.querySelector(".js-board");
   gridElement.innerHTML = getGridInnerElements(rows, columns);
 };
 
