@@ -1,0 +1,29 @@
+@use "../variables/colors";
+
+$gap: 3px;
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  background-color: colors.$primary;
+  padding: calc($gap * 5);
+  border-radius: 0.5rem;
+}
+
+.board__row {
+  display: flex;
+  gap: $gap;
+}
+
+.board__cell {
+  flex: 1;
+  aspect-ratio: 1/1;
+  background-color: colors.$gray-dark;
+  border: calc($gap / 10) solid colors.$gray;
+
+  &:focus,
+  &:hover {
+    background-color: colors.$white;
+  }
+}
