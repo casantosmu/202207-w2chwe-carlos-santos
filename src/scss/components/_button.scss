@@ -26,3 +26,15 @@
     background-color: color.adjust(colors.$gray-dark, $blackness: 10%);
   }
 }
+
+.button--disabled {
+  &,
+  &:hover,
+  &:focus,
+  &:hover {
+    pointer-events: none;
+    background-color: colors.$gray;
+    color: colors.$white;
+    outline: none;
+  }
+}
