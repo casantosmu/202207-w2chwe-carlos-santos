@@ -1,4 +1,8 @@
-import { printStarterGrid } from "./html/starter-board.js";
+import {
+  printBoard,
+  getStarterBoardInnerElements,
+} from "./html/print-board.js";
+
 // import {
 //   areAllDead,
 //   getCellsBoard,
@@ -20,7 +24,7 @@ import { printStarterGrid } from "./html/starter-board.js";
 // const cellsBoardRows = 3;
 // const cellsBoardColumns = currentCellStatus.length / cellsBoardRows;
 
-printStarterGrid(32, 32);
+printBoard(getStarterBoardInnerElements(32, 32));
 
 // const timedLoop = setInterval(() => {
 //   if (areAllDead(currentCellStatus)) {
