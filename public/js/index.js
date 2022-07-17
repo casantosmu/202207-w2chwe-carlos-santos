@@ -1,8 +1,5 @@
-import {
-  printBoard,
-  getStarterBoardInnerElements,
-} from "./html/print-board.js";
-import { boardClickHandler, boardKeyHandler } from "./html/event-listeners.js";
+import { printBoard, getStarterBoardInnerElements } from "./html/printBoard.js";
+import { boardClickHandler, boardKeyHandler } from "./html/eventListeners.js";
 
 // import {
 //   areAllDead,
