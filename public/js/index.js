@@ -7,15 +7,19 @@ import {
   getNextCellsStatus,
 } from "./cells/cellsBoard.js";
 
-const cellsBoardRows = 32;
-const cellsBoardColumns = 32;
-
-let isStopped = false;
+const cellsBoardRows = 12;
+const cellsBoardColumns = 12;
+let isStopped;
 
 const gameEvolution = () => {
   let currentCellsStatus = getStatusFromCellsElements();
+  isStopped = false;
 
   const timedLoop = setInterval(() => {
+    if (areAllDead(currentCellsStatus) || isStopped) {
+      clearInterval(timedLoop);
+    }
+
     const currentCellsBoard = getCellsBoard(
       cellsBoardRows,
       cellsBoardColumns,
@@ -23,7 +27,7 @@ const gameEvolution = () => {
     );
 
     currentCellsStatus = getNextCellsStatus(currentCellsBoard);
-
+    
     printBoard(
       getBoardInnerElements(
         cellsBoardRows,
@@ -31,12 +35,7 @@ const gameEvolution = () => {
         currentCellsStatus
       )
     );
-
-    if (areAllDead(currentCellsStatus) || isStopped) {
-      console.log("Stopedd");
-      clearInterval(timedLoop);
-    }
-  }, 1000);
+  }, 500);
 };
 
 printBoard(getBoardInnerElements(cellsBoardRows, cellsBoardColumns));
