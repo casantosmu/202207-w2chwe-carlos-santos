@@ -1,6 +1,6 @@
 import { getCellNextStatus } from "./cell.js";
 
-export const getCellsBoard = (rows, columns, cellsStatus) => {
+export const get2DCellsArray = (rows, columns, cellsStatus) => {
   let cellIndex = 0;
   const result = [];
 

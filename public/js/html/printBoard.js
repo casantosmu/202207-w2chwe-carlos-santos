@@ -8,11 +8,7 @@ const getCellTemplateHTML = (id, status) => {
 const getRowTemplateHTML = (innerHTML) =>
   `<div class="board__row">${innerHTML}</div>`;
 
-export const getBoardInnerElements = (
-  rows,
-  columns,
-  cellsStatus = undefined
-) => {
+export const getBoardInnerHTML = (rows, columns, cellsStatus = undefined) => {
   let loopCounter = 0;
   let boardHTML = "";
   for (let rowIndex = 0; rowIndex < rows; rowIndex += 1) {

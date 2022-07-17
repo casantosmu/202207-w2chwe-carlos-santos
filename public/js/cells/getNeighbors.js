@@ -44,16 +44,12 @@ export const getNeighborsCellsBackslash = (cellsBoard, cellRow, cellColumn) => {
   let upperLeftCell;
   let lowerRightCell;
 
-  if (cellColumn !== 0) {
-    if (cellRow !== 0) {
-      upperLeftCell = cellsBoard[cellRow - 1][cellColumn - 1];
-    }
+  if (cellColumn !== 0 && cellRow !== 0) {
+    upperLeftCell = cellsBoard[cellRow - 1][cellColumn - 1];
   }
 
-  if (cellColumn !== lastColumn) {
-    if (cellRow !== lastRow) {
-      lowerRightCell = cellsBoard[cellRow + 1][cellColumn + 1];
-    }
+  if (cellColumn !== lastColumn && cellRow !== lastRow) {
+    lowerRightCell = cellsBoard[cellRow + 1][cellColumn + 1];
   }
 
   return [upperLeftCell, lowerRightCell];
