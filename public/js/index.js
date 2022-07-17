@@ -1,3 +1,4 @@
+import { printStarterGrid } from "./html/starter-board.js";
 import {
   areAllDead,
   getCellsBoard,
@@ -19,21 +20,19 @@ let currentCellStatus = [
 const cellsBoardRows = 3;
 const cellsBoardColumns = currentCellStatus.length / cellsBoardRows;
 
-const game = () => {
-  const timedLoop = setInterval(() => {
-    if (areAllDead(currentCellStatus)) {
-      clearInterval(timedLoop);
-    }
+printStarterGrid(cellsBoardRows, cellsBoardColumns);
 
-    const currentCellsBoard = getCellsBoard(
-      cellsBoardRows,
-      cellsBoardColumns,
-      currentCellStatus
-    );
+const timedLoop = setInterval(() => {
+  if (areAllDead(currentCellStatus)) {
+    clearInterval(timedLoop);
+  }
 
-    console.log(currentCellsBoard);
-    currentCellStatus = getNextCellsStatus(currentCellsBoard);
-  }, 500);
-};
+  const currentCellsBoard = getCellsBoard(
+    cellsBoardRows,
+    cellsBoardColumns,
+    currentCellStatus
+  );
 
-game();
+  console.log(currentCellsBoard);
+  currentCellStatus = getNextCellsStatus(currentCellsBoard);
+}, 500);
