@@ -1,14 +1,15 @@
-import { printBoard, getBoardInnerElements } from "./html/printBoard.js";
+import { printBoard, getBoardInnerHTML } from "./html/printBoard.js";
 import { boardClickHandler, boardKeyHandler } from "./html/eventListeners.js";
 import { getStatusFromCellsElements } from "./html/getElements.js";
 import {
   areAllDead,
-  getCellsBoard,
+  get2DCellsArray,
   getNextCellsStatus,
 } from "./cells/cellsBoard.js";
 
 const cellsBoardRows = 12;
 const cellsBoardColumns = 12;
+const timerSpeed = 500;
 let isStopped;
 
 const gameEvolution = () => {
@@ -20,25 +21,21 @@ const gameEvolution = () => {
       clearInterval(timedLoop);
     }
 
-    const currentCellsBoard = getCellsBoard(
+    const current2DCellsArray = get2DCellsArray(
       cellsBoardRows,
       cellsBoardColumns,
       currentCellsStatus
     );
 
-    currentCellsStatus = getNextCellsStatus(currentCellsBoard);
-    
+    currentCellsStatus = getNextCellsStatus(current2DCellsArray);
+
     printBoard(
-      getBoardInnerElements(
-        cellsBoardRows,
-        cellsBoardColumns,
-        currentCellsStatus
-      )
+      getBoardInnerHTML(cellsBoardRows, cellsBoardColumns, currentCellsStatus)
     );
-  }, 500);
+  }, timerSpeed);
 };
 
-printBoard(getBoardInnerElements(cellsBoardRows, cellsBoardColumns));
+printBoard(getBoardInnerHTML(cellsBoardRows, cellsBoardColumns));
 
 const starButtonElement = document.querySelector(".js-play-button");
 const stopButtonElement = document.querySelector(".js-stop-button");
