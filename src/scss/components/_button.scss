@@ -12,9 +12,17 @@
 .button--primary {
   background-color: colors.$primary;
   color: colors.$white;
+
+  &:hover {
+    background-color: color.adjust(colors.$primary, $blackness: 10%);
+  }
 }
 
 .button--gray-dark {
   background-color: colors.$gray-dark;
   color: colors.$white;
+
+  &:hover {
+    background-color: color.adjust(colors.$gray-dark, $blackness: 10%);
+  }
 }
