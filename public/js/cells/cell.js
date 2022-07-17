@@ -3,7 +3,7 @@ import {
   getNeighborsCellsVertically,
   getNeighborsCellsSlash,
   getNeighborsCellsBackslash,
-} from "./get-neighbors.js";
+} from "./getNeighbors.js";
 
 const isAlive = (cellStatus, livingNeighborsCells) => {
   if (cellStatus === false && livingNeighborsCells === 3) {
