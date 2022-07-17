@@ -2,6 +2,7 @@ import {
   printBoard,
   getStarterBoardInnerElements,
 } from "./html/print-board.js";
+import { boardClickHandler, boardKeyHandler } from "./html/event-listeners.js";
 
 // import {
 //   areAllDead,
