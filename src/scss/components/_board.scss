@@ -31,3 +31,10 @@ $gap: 3px;
 .board__cell--accent {
   background-color: colors.$white;
 }
+
+.board__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+  margin-top: 1rem;
+}
