@@ -1,31 +1,29 @@
 @use "../variables/colors";
 
-$gap: 3px;
+$cells-gap: 0.1rem;
 
 .board {
   display: flex;
   flex-direction: column;
-  gap: $gap;
+  gap: $cells-gap;
   background-color: colors.$primary;
-  padding: calc($gap * 5);
+  padding: 0.3rem;
   border-radius: 0.5rem;
+  @media (min-width: 425px) {
+    padding: 0.5rem;
+  }
 }
 
 .board__row {
   display: flex;
-  gap: $gap;
+  gap: $cells-gap;
 }
 
 .board__cell {
   flex: 1;
   aspect-ratio: 1/1;
   background-color: colors.$gray-dark;
-  border: calc($gap / 10) solid colors.$gray;
-
-  // &:focus,
-  // &:hover {
-  //   background-color: colors.$white;
-  // }
+  border: 1px solid colors.$gray;
 }
 
 .board__cell--accent {
