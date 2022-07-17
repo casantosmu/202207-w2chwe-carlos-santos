@@ -27,6 +27,7 @@ const gameEvolution = () => {
     );
 
     currentCellsStatus = getNextCellsStatus(currentCellsBoard);
+    
     printBoard(
       getBoardInnerElements(
         cellsBoardRows,
