@@ -22,8 +22,19 @@ $gap: 3px;
   background-color: colors.$gray-dark;
   border: calc($gap / 10) solid colors.$gray;
 
-  &:focus,
-  &:hover {
-    background-color: colors.$white;
-  }
+  // &:focus,
+  // &:hover {
+  //   background-color: colors.$white;
+  // }
+}
+
+.board__cell--accent {
+  background-color: colors.$white;
+}
+
+.board__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+  margin-top: 1rem;
 }
